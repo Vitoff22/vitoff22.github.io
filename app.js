@@ -185,25 +185,7 @@ if(preview && previewStage) {
   document.documentElement.classList.add('gallery-ready');
 }
 
-/* PDF viewing: normal file links online, a PDF Blob in the standalone file.
-   Native links open the viewer directly; no asynchronous blank popup. */
-const pdfViewers=$$('[data-cv-view]');
-const sourcePDF=pdfViewers[0]?.getAttribute('href');
-if(sourcePDF?.startsWith('data:application/pdf;base64,')) {
-  try {
-    const binary=atob(sourcePDF.split(',')[1]);
-    const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));
-    const pdfURL=URL.createObjectURL(new Blob([bytes],{type:'application/pdf'}));
-    pdfViewers.forEach(link=>link.href=pdfURL);
-    // The browser retains this URL for this page's lifetime, including new tabs.
-  } catch {
-    pdfViewers.forEach(link=>link.addEventListener('click',e=>{
-      e.preventDefault();toast('L’aperçu est indisponible. Utilisez Télécharger le PDF dans la section Contact.');
-      $('#contact').scrollIntoView({behavior:paused?'instant':'smooth'});
-      $('.contact-links a[download$=".pdf"]').focus({preventScroll:true});
-    }));
-  }
-}
+/* CV links use the bundled PDF directly, without inline data or Blob URLs. */
 
 /* Contact uses the visitor's mail application; it never claims to send mail. */
 $('#copy-email').addEventListener('click', async () => {
@@ -334,6 +316,17 @@ function createEntrance() {
   if (!surface || reduced.matches || paused || location.hash || window.scrollY > 0 ||
       document.hidden || navigation?.type === 'back_forward' ||
       getComputedStyle(surface).getPropertyValue('--intro-ready').trim() !== '1') return null;
+
+  // sessionStorage survives reloads and same-tab visits, but expires with the tab.
+  // Mark the start, so skipping the animation also counts as having seen it.
+  try {
+    const key = 'portfolio:intro-seen';
+    if (window.sessionStorage.getItem(key) === '1') return null;
+    window.sessionStorage.setItem(key, '1');
+  } catch {
+    // If storage is blocked, prefer no decorative intro to repeated interruptions.
+    return null;
+  }
 
   let running = true;
   let timer;

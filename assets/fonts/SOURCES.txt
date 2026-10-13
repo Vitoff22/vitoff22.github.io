@@ -1,0 +1,25 @@
+Local copies of the original portfolio typefaces (downloaded 2026-10-13).
+These files are variable WOFF2 fonts, not executable scripts.
+Latin and Latin Extended cover the French portfolio text.
+
+Official stylesheet used to verify the families and variable weight ranges:
+https://fonts.googleapis.com/css2?family=Unbounded:wght@400..700&family=Manrope:wght@400..800&display=swap
+
+Manrope (Google Fonts v20, weights 400-800):
+manrope-latin.woff2
+https://fonts.gstatic.com/s/manrope/v20/xn7gYHE41ni1AdIRggexSg.woff2
+manrope-latin-ext.woff2
+https://fonts.gstatic.com/s/manrope/v20/xn7gYHE41ni1AdIRggmxSuXd.woff2
+License: OFL-Manrope.txt, copied from
+https://raw.githubusercontent.com/google/fonts/main/ofl/manrope/OFL.txt
+
+Unbounded (Google Fonts v12, weights 400-700):
+unbounded-latin.woff2
+https://fonts.gstatic.com/s/unbounded/v12/Yq6W-LOTXCb04q32xlpwu8Zf.woff2
+unbounded-latin-ext.woff2
+https://fonts.gstatic.com/s/unbounded/v12/Yq6W-LOTXCb04q32xlpwtcZfrxE.woff2
+License: OFL-Unbounded.txt, copied from
+https://raw.githubusercontent.com/google/fonts/main/ofl/unbounded/OFL.txt
+
+Both typefaces are redistributed under the SIL Open Font License 1.1.
+The website loads these local assets only; it makes no Google Fonts requests.

@@ -42,14 +42,14 @@ Aucune vidéo ni bibliothèque d’animation n’est téléchargée par les visi
 - Fiches présentes dans le HTML, ouvrables depuis une adresse dédiée, avec copie du lien, projet suivant et prise de contact contextualisée.
 - Compétences en accordéons : le contenu s’ouvre directement sous son intitulé, sur une colonne sur téléphone et deux sur ordinateur.
 - Navigation plein écran sur ordinateur et mobile, accès direct au CV dans la barre, repérage de la section active, formation dépliable et présentation des centres d’intérêt, voyages et langues.
-- **Consulter le CV** dans un nouvel onglet, **Télécharger le PDF** et **Version Word** dans les contacts. Le menu contient aussi l’accès au CV.
+- **Consulter le CV** dans un nouvel onglet depuis les contacts. Les liens de téléchargement PDF et Word ont été retirés. Le menu contient aussi l’accès au CV.
 - Pause des animations et prise en compte de la préférence de réduction des mouvements.
 
 Le formulaire **prépare un e-mail** dans la messagerie du visiteur. L’envoi doit ensuite être confirmé dans cette messagerie. Le site n’envoie ni n’enregistre les messages. Si aucune messagerie n’est configurée, l’adresse et sa copie manuelle restent disponibles.
 
 Les fiches utilisent des ancres compatibles avec un site statique. Ouvrir un lien de projet rétablit le filtre « Tous » si nécessaire. Fermer la fiche revient à `#projets`. Les boutons Retour et Avancer synchronisent la fiche avec l’adresse. Un lien copié depuis un fichier local reste local : il faut partager le fichier ou utiliser l’adresse du site une fois hébergé.
 
-**Sans JavaScript**, les quatre fiches sont ouvertes au chargement ; elles et les compétences restent dépliables grâce aux éléments HTML natifs. La navigation, les coordonnées et les téléchargements restent accessibles. Les filtres, boutons de copie, animation interactive et formulaire préparant l’e-mail nécessitent JavaScript. Dans le HTML autonome, l’aperçu du PDF nécessite JavaScript ; son téléchargement reste disponible sans script.
+**Sans JavaScript**, les quatre fiches sont ouvertes au chargement ; elles et les compétences restent dépliables grâce aux éléments HTML natifs. La navigation, les coordonnées et le lien vers le CV restent accessibles. Les filtres, boutons de copie, animation interactive et formulaire préparant l’e-mail nécessitent JavaScript. Dans le HTML autonome, l’aperçu du PDF nécessite JavaScript ; aucun lien de téléchargement séparé n’est affiché.
 
 ## Architecture
 
@@ -143,7 +143,7 @@ Derniers ajustements : formations présentées avec deux accordéons identiques,
 | 3. Vérification | Contrôles structurels, documents, contrastes de la palette principale et tests de logique exécutés. Vérification navigateur bloquée. |
 | 4. Compétences | Cinq accordéons HTML natifs, avec liens vers les projets lorsque la correspondance est documentée. |
 | 5. Petits textes | Détails utiles généralement à 13–14 px, paragraphes à 15–16 px, espaces adaptés et focus visible prévu. |
-| 6. CV | Consultation et téléchargements séparés. Conversion PDF en mémoire pour l’aperçu autonome et repli vers le téléchargement en cas d’erreur. |
+| 6. CV | Consultation du CV. Conversion PDF en mémoire pour l’aperçu autonome et message explicite en cas d’erreur. |
 | 7. Adresses des projets | Quatre ancres, synchronisation de l’ouverture, fermeture, historique et filtres ; détails disponibles sans script. |
 | 8. Partage | Métadonnées et image fournies. URL absolues et contrôle de l’aperçu à terminer après publication confirmée. |
 
@@ -165,7 +165,7 @@ Contrôles à effectuer sur navigateur disponible :
 - Largeurs **360, 390, 768 et 1440 px**, puis **zoom à 200 %** : débordements, retours à la ligne, espacements, hauteur de l’accueil et lisibilité.
 - Clavier : lien d’évitement, ordre de tabulation, focus visible, menu et touche Échap, accordéons et fiches.
 - Chargement direct de chacune des quatre ancres, rechargement, Retour/Avancer et changement de filtre.
-- Consultation du CV et téléchargements PDF/Word dans les deux versions, copie des liens avec et sans permission, messagerie disponible ou absente.
+- Consultation du CV dans les deux versions, copie des liens avec et sans permission, messagerie disponible ou absente.
 - Préférence de réduction des mouvements, pause, onglet masqué, aperçu des projets au survol et au focus, puis navigation sans JavaScript.
 - Animation d’entrée : ouverture sans ancre, titres et illustrations sur téléphone et en paysage, bouton Passer, interruption clavier/pointeur, fin automatique, retour d’historique et lien direct vers un projet.
 
@@ -187,3 +187,15 @@ La photo reste volontairement absente du site. Aucun remplacement ni ajout de d�
 Modifiez directement les fichiers de ce dépôt Git. Publiez `index.html`, `app.js` et `style.css` ensemble. Les liens CSS et JavaScript dans `index.html` comportent un paramètre `v` : augmentez sa valeur lorsque ces ressources changent afin de renouveler leur cache. Conservez `defer` sur le script.
 
 Le menu ne s’initialise que si son bouton, sa navigation et son en-tête sont présents. Leur absence ne bloque ainsi pas les autres interactions.
+
+L’introduction se joue une seule fois par session d’onglet (`sessionStorage`), même après rechargement ou interruption. Si le stockage est bloqué, elle est désactivée. Une nouvelle session peut la rejouer ; les préférences de réduction des animations restent respectées.
+
+## Sécurité et données publiées
+
+Les scripts, styles et polices sont servis depuis le site lui-même. Une politique CSP dans le HTML limite les ressources à cette origine et bloque les scripts intégrés, les connexions JavaScript externes et les soumissions natives. Le formulaire prépare toujours un e-mail dans la messagerie du visiteur ; il ne transmet aucun message à un serveur du portfolio.
+
+Le CV PDF et les coordonnées restent volontairement publics. Le fichier Word et le portrait isolé ont été retirés de la version courante ; leurs anciennes versions peuvent subsister dans l’historique public Git ou les caches. Leur retrait ne constitue pas un effacement de toutes les copies.
+
+Le site se publie depuis la racine de ce dépôt. Le fichier HTML autonome des anciennes livraisons est une archive et n’est plus la source maintenue.
+
+Vérifications locales : `node tests/security.cjs`, `node tests/intro.cjs`, `node tests/navigation.cjs`. La CSP via balise meta ne permet pas de définir `frame-ancestors` ; les protections nécessitant des en-têtes HTTP restent dépendantes de l’hébergement.
