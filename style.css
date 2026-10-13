@@ -231,7 +231,7 @@ h2 { font: 500 clamp(47px, 5.1vw, 71px)/1.02 var(--display); letter-spacing: -.6
 .interest-list dt { font-size: 13px; color: var(--muted); padding-top: 2px; }
 .interest-list dd { margin: 0; font-size: 15px; line-height: 1.7; }
 .interest-spark { margin-left: 12px; color: var(--accent); }
-.personal-travel { position: relative; isolation: isolate; background: oklch(23% .024 155); }
+.personal-travel { position: relative; isolation: isolate; overflow: clip; background: oklch(23% .024 155); }
 .personal-travel .personal-heading { margin-bottom: 13px; }
 .travel-arrow { font-size: 32px; color: var(--accent); line-height: 1; }
 .travel-intro { font-size: 13px; color: var(--muted); }
