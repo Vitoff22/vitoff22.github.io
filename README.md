@@ -181,3 +181,9 @@ Ces informations ne figurent pas dans les documents disponibles et ne sont pas a
 | AgriScan | Rôle, écrans authentiques, étapes du diagnostic, méthode IA réellement utilisée, difficulté résolue et limites observées. |
 
 La photo reste volontairement absente du site. Aucun remplacement ni ajout de dépôt de projet n’est supposé.
+
+### Cohérence des fichiers après publication
+
+Modifiez directement les fichiers de ce dépôt Git. Publiez `index.html`, `app.js` et `style.css` ensemble. Les liens CSS et JavaScript dans `index.html` comportent un paramètre `v` : augmentez sa valeur lorsque ces ressources changent afin de renouveler leur cache. Conservez `defer` sur le script.
+
+Le menu ne s’initialise que si son bouton, sa navigation et son en-tête sont présents. Leur absence ne bloque ainsi pas les autres interactions.

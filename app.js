@@ -25,7 +25,9 @@ function toast(message) {
   toastTimer = setTimeout(() => el.classList.remove('show'), 5000);
 }
 /* Mobile navigation: logical focus order and an explicit return on Escape. */
-const menu=$('.menu'), nav=$('#nav');
+const menu=$('.menu'), nav=$('#nav'), header=$('.header');
+// A missing navigation must not stop projects, contact or the entrance controller.
+if(menu && nav && header) {
 function setMenuSurface(open) {
   document.documentElement?.classList.toggle('menu-open',open);
   $$('main,footer,.skip').forEach(element=>element.inert=open);
@@ -46,9 +48,9 @@ menu.addEventListener('click', () => {
   menu.setAttribute('aria-expanded','true');
   menu.setAttribute('aria-label','Fermer le menu');
   setMenuSurface(true);
-  $('a',nav).focus();
+  $('a',nav)?.focus();
 });
-$$('a',$('.header')).forEach(link => link.addEventListener('click', () => {
+$$('a',header).forEach(link => link.addEventListener('click', () => {
   const section=link.hash ? $(link.hash) : null;
   closeMenu(!section);
   if(section) {
@@ -59,14 +61,16 @@ $$('a',$('.header')).forEach(link => link.addEventListener('click', () => {
 document.addEventListener('keydown', e => {
   if(e.key==='Escape') closeMenu(true);
   if(e.key==='Tab' && menu.getAttribute('aria-expanded')==='true') {
-    const controls=$$('a,button',$('.header'));
+    const controls=$$('a,button',header);
     const first=controls[0],last=controls.at(-1);
     if(e.shiftKey && document.activeElement===first) { e.preventDefault();last.focus(); }
     else if(!e.shiftKey && document.activeElement===last) { e.preventDefault();first.focus(); }
   }
 });
-document.addEventListener('click', e => { if(!$('.header').contains(e.target)) closeMenu(); });
+document.addEventListener('click', e => { if(!header.contains(e.target)) closeMenu(); });
 window.matchMedia('(min-width:761px)').addEventListener('change', e => { if(e.matches) closeMenu(); });
+
+} // Navigation is optional; the rest of the page initializes independently.
 
 /* Project filters */
 const projectCards=$$('.project');
