@@ -200,11 +200,12 @@ $('#copy-email').addEventListener('click', async () => {
 $('#contact-form').addEventListener('submit', e => {
   e.preventDefault();
   const sender=$('#sender'), message=$('#message');
-  sender.setCustomValidity(sender.value.trim()?'':'Indiquez votre nom.');
+  sender.setCustomValidity('');
   message.setCustomValidity(message.value.trim()?'':'Écrivez votre message.');
   if(!e.currentTarget.reportValidity()) return;
-  const subject=encodeURIComponent(`Contact portfolio — ${sender.value.trim()}`);
-  const body=encodeURIComponent(`${message.value.trim()}\n\n${sender.value.trim()}`);
+  const name=sender.value.trim();
+  const subject=encodeURIComponent(name ? `Contact portfolio — ${name}` : 'Contact portfolio');
+  const body=encodeURIComponent(name ? `${message.value.trim()}\n\n${name}` : message.value.trim());
   window.location.href=`mailto:${EMAIL}?subject=${subject}&body=${body}`;
   $('#form-feedback').textContent='Message préparé. Confirmez son envoi dans votre messagerie. Si elle ne s’ouvre pas, utilisez l’adresse e-mail ci-contre.';
 });

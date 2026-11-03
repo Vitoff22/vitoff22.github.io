@@ -44,7 +44,8 @@ check('no inline executable content or style attributes conflict with CSP', () =
 });
 check('all automatic page resources are local and exist', () => {
   for(const tag of tags) {
-    const resource = tag.name === 'script' || tag.name === 'img' ? tag.attrs.src : tag.name === 'link' ? tag.attrs.href : null;
+    const loadedLink = tag.name === 'link' && /\b(?:stylesheet|icon|preload|modulepreload|prefetch)\b/.test(tag.attrs.rel || '');
+    const resource = tag.name === 'script' || tag.name === 'img' ? tag.attrs.src : loadedLink ? tag.attrs.href : null;
     if(!resource) continue;
     assert.doesNotMatch(resource, /^(?:[a-z]+:|\/\/|\/)/i);
     assert.ok(fs.existsSync(path.join(root, resource.split(/[?#]/)[0])), resource);
@@ -110,11 +111,19 @@ check('contact payloads remain text and cannot add recipients or URL parameters'
   assert.match(result.elements['#form-feedback'].textContent, /Message préparé/);
   assert.doesNotMatch(result.elements['#form-feedback'].textContent, /message envoyé/i);
 });
-check('empty contact fields never navigate or claim an email was sent', () => {
-  for(const input of [[' ','hello'],['Alice','\n ']]) {
+check('empty messages never navigate or claim an email was sent', () => {
+  for(const input of [[' ','\n '],['Alice','\n ']]) {
     const result=submit(...input);
     assert.equal(result.location.href,'https://example.test/');
     assert.equal(result.elements['#form-feedback'].textContent,'');
   }
+});
+check('a visitor can prepare a message without disclosing a name', () => {
+  const result=submit('  ','Bonjour, parlons de votre alternance.');
+  const uri=new URL(result.location.href);
+  assert.equal(uri.protocol,'mailto:');
+  assert.equal(uri.searchParams.get('subject'),'Contact portfolio');
+  assert.equal(uri.searchParams.get('body'),'Bonjour, parlons de votre alternance.');
+  assert.match(result.elements['#form-feedback'].textContent,/Message préparé/);
 });
 console.log(`Security contracts: ${checks} groups passed (static checks and contact VM; not a browser certification).`);
