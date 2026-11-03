@@ -1044,7 +1044,7 @@ html:not(.js) .nav-index { display:none; }
   isolation: isolate;
   pointer-events: none;
   contain: layout paint;
-  animation: portfolio-intro-exit 4800ms cubic-bezier(.76, 0, .24, 1) both;
+  animation: portfolio-intro-exit 2400ms cubic-bezier(.76, 0, .24, 1) both;
 }
 .intro-scenes, .intro-scene, .intro-content { position: absolute; inset: 0; }
 .intro-scenes { isolation: isolate; z-index: 0; }
@@ -1061,7 +1061,7 @@ html:not(.js) .nav-index { display:none; }
   background: oklch(84% .085 140);
 }
 .intro-scene:nth-child(2) {
-  --intro-delay: 1000ms;
+  --intro-delay: 500ms;
   --intro-object: oklch(30% .05 154);
   --intro-highlight: oklch(92% .08 141);
   --intro-stroke: oklch(79% .09 142);
@@ -1070,7 +1070,7 @@ html:not(.js) .nav-index { display:none; }
   background: oklch(46% .065 155);
 }
 .intro-scene:nth-child(3) {
-  --intro-delay: 2600ms;
+  --intro-delay: 1300ms;
   --intro-object: oklch(35% .06 150);
   --intro-highlight: oklch(86% .13 138);
   --intro-stroke: oklch(76% .09 140);
@@ -1082,10 +1082,10 @@ html:not(.js) .nav-index { display:none; }
 /* Equal, opposite transforms: the opaque curtain slides while its composition
    stays centered. Each curtain clips its own content; the layers never leak. */
 .intro-scene + .intro-scene {
-  animation: portfolio-panel-in 600ms cubic-bezier(.76, 0, .24, 1) var(--intro-delay) both;
+  animation: portfolio-panel-in 300ms cubic-bezier(.76, 0, .24, 1) var(--intro-delay) both;
 }
 .intro-scene + .intro-scene > .intro-content {
-  animation: portfolio-panel-counter 600ms cubic-bezier(.76, 0, .24, 1) var(--intro-delay) both;
+  animation: portfolio-panel-counter 300ms cubic-bezier(.76, 0, .24, 1) var(--intro-delay) both;
 }
 .intro-content { isolation: isolate; }
 .intro-title {
@@ -1118,7 +1118,7 @@ html:not(.js) .nav-index { display:none; }
   color: var(--intro-highlight);
   transform-origin: 50% 50%;
   backface-visibility: hidden;
-  animation: portfolio-object-turn 1800ms var(--ease) var(--intro-delay) both;
+  animation: portfolio-object-turn 900ms var(--ease) var(--intro-delay) both;
 }
 .intro-number, .intro-caption, .intro-topics {
   position: absolute;

@@ -155,7 +155,7 @@ test('Child animation end and unrelated surface animation end are ignored',()=>{
   f.entrance.finish();assertReleased(f);
 });
 test('The independent safety timer releases an intro with no animation event',()=>{
-  const f=fixture();f.advance(5099);assertActive(f);f.advance(1);assertReleased(f);
+  const f=fixture();f.advance(backupDelay-1);assertActive(f);f.advance(1);assertReleased(f);
 });
 for(const type of ['pointerdown','keydown','focusin','wheel','touchstart'])test('First '+type+' restores content without preventing the visitor action',()=>{
   const f=fixture();const event=f.document.emit(type,{target:f.externalLink,key:'Tab'});assertReleased(f);assert.equal(event.defaultPrevented,false);assert.equal(event.preventDefaultCalls,0);assert.equal(f.document.activeElement,f.externalLink);
@@ -216,19 +216,20 @@ test('Incoming panel and composition use exactly opposite translations with matc
   const panelSelector='.intro-scene + .intro-scene',counterSelector='.intro-scene + .intro-scene > .intro-content';
   const panel=declarations(panelSelector),counter=declarations(counterSelector);
   assert.equal(panel.animation.replace('portfolio-panel-in','paired-motion'),counter.animation.replace('portfolio-panel-counter','paired-motion'));
-  assert.equal(animationDuration(panelSelector,'portfolio-panel-in'),600);assert.match(panel.animation,/var\(--intro-delay\)\s+both$/);
+  assert.equal(animationDuration(panelSelector,'portfolio-panel-in'),300);assert.match(panel.animation,/var\(--intro-delay\)\s+both$/);
   assert.equal(frameTransform('portfolio-panel-in','from'),'translate3d(100%,0,0)');assert.equal(frameTransform('portfolio-panel-counter','from'),'translate3d(-100%,0,0)');
   assert.equal(frameTransform('portfolio-panel-in','to'),'translate3d(0,0,0)');assert.equal(frameTransform('portfolio-panel-counter','to'),'translate3d(0,0,0)');
   for(const selector of ['.intro-scene','.intro-content']){const props=declarations(selector);assert.equal(props.position,'absolute');assert.equal(props.inset,'0');assert.ok(!props.width&&!props.padding&&!props.border,'Equal-size translation reference boxes: '+selector);}
 });
-test('Panel timing gives at least 800ms to each installed scene before the next movement',()=>{
+test('Compact intro keeps readable scenes and finishes within 2.5 seconds',()=>{
   const duration=animationDuration('.intro-scene + .intro-scene','portfolio-panel-in');
   const delay2=milliseconds(declarations('.intro-scene:nth-child(2)')['--intro-delay']),delay3=milliseconds(declarations('.intro-scene:nth-child(3)')['--intro-delay']);
   const exitStart=exitDuration*Number(keyframeBody('portfolio-intro-exit').match(/0%,\s*([\d.]+)%/)?.[1])/100;
   const rests=[delay2,delay3-(delay2+duration),exitStart-(delay3+duration)];
-  assert.ok(rests.every(rest=>rest>=800),'Scene reading intervals: '+rests.join(', '));
+  assert.ok(rests.every(rest=>rest>=500),'Scene reading intervals: '+rests.join(', '));
   assert.ok(delay3+duration<exitStart);assert.ok(delay3+animationDuration('.intro-art','portfolio-object-turn')<exitDuration,'Final object movement ends before the whole sequence finishes');
-  assert.equal(exitDuration,4800);assert.equal(backupDelay,5100);assert.ok(backupDelay>exitDuration);
+  assert.ok(exitDuration<=2500,'The introduction must stay brief');
+  assert.ok(backupDelay>exitDuration&&backupDelay<=exitDuration+300,'Safety release follows the visual ending promptly');
   const f=fixture();assert.equal([...f.timers.values()][0].due,backupDelay);f.entrance.finish();assertReleased(f);
 });
 test('Entrance content has no outgoing opacity animation or artificial blank phases',()=>{
@@ -243,7 +244,7 @@ test('An already available web font is chosen once and remains fixed for the seq
 });
 test('A late web font never replaces the initial fallback midway through the intro',()=>{
   const f=fixture({fontReady:false});assertActive(f);assert.equal(f.surface.style.getPropertyValue('--intro-display'),"'Arial Black', Arial, sans-serif");
-  f.setFontReady(true);f.advance(2600);assert.equal(f.fontChecks.length,1);assert.equal(f.surface.style.getPropertyValue('--intro-display'),"'Arial Black', Arial, sans-serif");f.entrance.finish();assertReleased(f);
+  f.setFontReady(true);f.advance(exitDuration/2);assertActive(f);assert.equal(f.fontChecks.length,1);assert.equal(f.surface.style.getPropertyValue('--intro-display'),"'Arial Black', Arial, sans-serif");f.entrance.finish();assertReleased(f);
 });
 test('Missing optional Font Loading API keeps the system fallback and the intro usable',()=>{
   const f=fixture({fontAPI:false});assertActive(f);assert.equal(f.fontChecks.length,0);assert.equal(f.surface.style.getPropertyValue('--intro-display'),"'Arial Black', Arial, sans-serif");f.entrance.finish();assertReleased(f);

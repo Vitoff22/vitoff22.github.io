@@ -374,7 +374,7 @@ function createEntrance() {
   network?.suspend();
   // CSS also hides the surface at its last frame. This independent timeout
   // releases it if the animation-end event is dropped or styles are changed.
-  timer = setTimeout(finish, 5100);
+  timer = setTimeout(finish, 2700);
   return {finish};
 }
 entrance = createEntrance();

@@ -22,7 +22,7 @@ Les visuels sont des illustrations de présentation, pas des captures d’applic
 - Navigation, filtres et fiches projets avec liens directs partageables.
 - Accordéons pour les compétences et le parcours.
 - Signature animée au survol et au focus clavier.
-- Introduction limitée à une fois par session d’onglet, grâce à `sessionStorage`. Une introduction passée compte comme vue. Si le stockage est bloqué, elle ne joue pas.
+- Introduction de 2,4 secondes, limitée à une fois par session d’onglet grâce à `sessionStorage`. Elle peut être passée immédiatement par une interaction ou le bouton prévu. Une introduction passée compte comme vue. Si le stockage est bloqué, elle ne joue pas.
 - Réduction des animations selon les préférences du navigateur et commande de pause.
 - Consultation du CV PDF dans un nouvel onglet.
 - Copie de l’adresse e-mail et formulaire qui prépare un e-mail dans la messagerie du visiteur. Aucun message n’est envoyé par le site.
