@@ -1,8 +1,8 @@
 # Julien Fretille — Portfolio
 
-Portfolio personnel de Julien Fretille, étudiant en 2e année de Bachelor Systèmes et Réseaux à Sup de Vinci, La Défense · Paris. Projets académiques, compétences, formation et stages d’observation dans une interface sombre aux nuances de vert.
+Portfolio personnel de Julien Fretille, étudiant en 2e année de Bachelor Systèmes et réseaux à SUP de VINCI, La Défense · Paris. Projets académiques, compétences, formation et stages d’observation dans une interface sombre aux nuances de vert.
 
-Le contenu est aligné sur le CV final fourni le 3 novembre 2026 : recherche d’une alternance en sécurité des systèmes d’information pour 2027–2028, à Limoges et alentours (10 km), avec un rythme de deux semaines en entreprise et deux semaines à l’école. Cette zone correspond au secteur de recherche, pas à une adresse de résidence.
+Le contenu est harmonisé avec la campagne de candidature du 5 novembre 2026 : alternance systèmes et réseaux de 12 mois dès septembre 2027, à Limoges et alentours (10 km), avec un intérêt pour la sécurité et un rythme de deux semaines en entreprise et deux semaines à l’école. Un logement est déjà disponible dans le secteur pour les semaines en entreprise ; aucune adresse privée n’est publiée.
 
 [Voir le portfolio](https://vitoff22.github.io/) · [GitHub](https://github.com/Vitoff22) · [LinkedIn](https://www.linkedin.com/in/julien-fretille)
 
@@ -12,7 +12,7 @@ Le contenu est aligné sur le CV final fourni le 3 novembre 2026 : recherche d�
 | --- | --- |
 | VINCI-INDUS | Infrastructure AD, DNS, DHCP, GPO, VLAN et serveur web. |
 | Gymshark Sync | Site NodeJS avec intégration d’un assistant IA. |
-| Python + MongoDB | Jeu et gestion des scores en base de données. |
+| Python + MongoDB | Jeu local et scores dans MongoDB ; [code, README et tests](https://github.com/Vitoff22/Jeu_BDD). |
 | AgriScan | Projet d’application mobile de diagnostic végétal avec IA et FlutterFlow. |
 
 Les visuels sont des illustrations de présentation, pas des captures d’applications. Aucun résultat chiffré ou niveau de maîtrise n’est inventé.
@@ -58,7 +58,7 @@ Une CSP placée au début du HTML restreint les scripts, styles, images et polic
 
 Les polices sont hébergées localement. Aucun service d’analyse d’audience, appel à une API d’IA ou script tiers n’est intégré. La politique de provenance est `no-referrer`. Les liens ouvrant un nouvel onglet utilisent `noopener noreferrer`.
 
-Le CV PDF et les coordonnées restent volontairement publics. Le fichier `assets/CV_Julien_Fretille.pdf` est une copie exacte du CV final fourni, sans photo ; son nom reste stable pour préserver les liens. Le Word et le portrait isolé ont été retirés de la version courante ; leurs anciennes versions peuvent subsister dans l’historique public Git ou les caches. Retirer un lien ou un fichier courant n’efface pas les copies historiques.
+Le CV PDF et les coordonnées restent volontairement publics. Le fichier `assets/CV_Julien_Fretille.pdf` est une copie exacte du CV révisé pour la campagne de candidature du 5 novembre 2026, sans photo ; son nom reste stable pour préserver les liens. Le Word et le portrait isolé ont été retirés de la version courante ; leurs anciennes versions peuvent subsister dans l’historique public Git ou les caches. Retirer un lien ou un fichier courant n’efface pas les copies historiques.
 
 Le nom dans le formulaire est facultatif ; le message est obligatoire. La préparation reste locale, puis le visiteur décide de l’envoi dans sa messagerie. La page de confidentialité décrit le traitement des e-mails reçus par Julien, Gmail, les journaux techniques de GitHub Pages, les transferts possibles et les droits des personnes. Elle distingue ces traitements de la simple préparation du message.
 

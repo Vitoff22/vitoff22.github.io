@@ -3,7 +3,7 @@
 const DOMAINS = {
   systemes: { number:'01', title:'Faire fonctionner les systèmes.', text:'Windows Server, Linux et virtualisation : les bases de mon parcours.' },
   reseaux: { number:'02', title:'Relier les environnements.', text:'Cisco, DNS, DHCP et VLAN : des technologies présentes dans ma formation et mes projets.' },
-  cyber: { number:'03', title:'Comprendre pour mieux protéger.', text:'Sécurisation, analyse de vulnérabilités et veille : les notions que j’approfondis.' }
+  cyber: { number:'03', title:'Comprendre pour mieux protéger.', text:'Mon stage d’observation auprès du RSSI de Storengy a renforcé mon intérêt pour la sécurité des infrastructures.' }
 };
 const EMAIL = 'julien.fretille@gmail.com';
 const $ = (s, root=document) => root.querySelector(s);
